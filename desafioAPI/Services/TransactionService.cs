@@ -11,13 +11,15 @@ namespace desafioAPI.Services
 
         private readonly TransactionRepository _repo;
         private readonly WalletRepository _walletRepo;
+        private readonly AuthorizationService _authorizationService;
         private readonly ILogger<TransactionService> _logger;
 
-        public TransactionService(TransactionRepository repo, WalletRepository userRepo, ILogger<TransactionService> logger)
+        public TransactionService(TransactionRepository repo, WalletRepository userRepo, ILogger<TransactionService> logger, AuthorizationService authorizationService)
         {
             _repo = repo;
             _walletRepo = userRepo;
             _logger = logger;
+            _authorizationService = authorizationService;
         }
 
         public async Task MakeTransaction(TransactionPostRequestBody transactionDTO)
@@ -37,40 +39,34 @@ namespace desafioAPI.Services
 
             await strategy.ExecuteAsync(async () =>
             {
+                var dbTransaction = await _walletRepo.BeginTransaction();
                 try
                 {
 
-                    var dbTransaction = await _walletRepo.BeginTransaction();
+                    Wallet sender = new();
+                    Wallet receiver = new();
 
-                    var firstId = Math.Min(transaction.SenderId, transaction.ReceiverId);
-                    var secondId = Math.Max(transaction.SenderId, transaction.ReceiverId);
-
-                    Wallet? sender;
-                    Wallet? receiver;
-
-                    if (firstId == transaction.SenderId)
-                    {
-                        sender = await _walletRepo.GetByIdLock(firstId);
-                        receiver = await _walletRepo.GetByIdLock(secondId);
-                    }
-                    else
-                    {
-                        receiver = await _walletRepo.GetByIdLock(firstId);
-                        sender = await _walletRepo.GetByIdLock(secondId);
-                    }
-
+                    (sender, receiver) = await DefineLockOrder(transaction);
 
                     await UpdateBalance(transaction, sender, receiver);
+
                     await _repo.Create(transaction);
 
-                    Thread.Sleep(5000);
+                    await _authorizationService.Authorize(transaction);
 
                     await dbTransaction.CommitAsync();
 
                 }
+                catch (AuthorizationException ex)
+                {
+                    await dbTransaction.RollbackAsync();
+                    _logger.LogError(ex.Message, ex);
+                    throw;
 
+                }
                 catch (Exception ex)
                 {
+                    await dbTransaction.RollbackAsync();
                     _logger.LogError(ex.Message, ex);
                     throw new TransferException("Error while transfering the money", ex, transaction.SenderId, transaction.ReceiverId, transaction.TransactionTotal);
 
@@ -79,11 +75,32 @@ namespace desafioAPI.Services
 
 
         }
-
         public async Task<List<Transaction>> GetAllUserTransactions(int walletId)
         {
             return await _repo.GetAllUserTransactions(walletId);
         }
+
+        private async Task<(Wallet sender, Wallet receiver)> DefineLockOrder(Transaction transaction)
+        {
+            var firstId = Math.Min(transaction.SenderId, transaction.ReceiverId);
+            var secondId = Math.Max(transaction.SenderId, transaction.ReceiverId);
+
+            Wallet sender, receiver;
+
+            if (firstId == transaction.SenderId)
+            {
+                sender = await _walletRepo.GetByIdLock(firstId);
+                receiver = await _walletRepo.GetByIdLock(secondId);
+            }
+            else
+            {
+                receiver = await _walletRepo.GetByIdLock(firstId);
+                sender = await _walletRepo.GetByIdLock(secondId);
+            }
+
+            return (sender, receiver);
+        }
+
 
         private async Task UpdateBalance(Transaction transaction, Wallet sender, Wallet receiver)
         {

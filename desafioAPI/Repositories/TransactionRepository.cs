@@ -31,11 +31,7 @@ namespace desafioAPI.Repositories
         public async Task<List<Transaction>> GetAllUserTransactions(int walletId)
         {
 
-            using (var _dbContext = new AppDBContext())
-            {
-
-                return await _dbContext.Transaction.AsNoTracking().Where(t => t.SenderId == walletId || t.ReceiverId == walletId).ToListAsync();
-            }
+            return await _context.Transaction.AsNoTracking().Where(t => t.SenderId == walletId || t.ReceiverId == walletId).ToListAsync();
 
         }
 

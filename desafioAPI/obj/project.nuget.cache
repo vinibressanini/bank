@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Wda5xV5DUkugDn7JaJgAAQD6HqR1rTfo6Xezey5CH+H+qmMElUhnDFZIggAYw24DSk7MhnpPyfq+MxxW3KzrPQ==",
+  "dgSpecHash": "tQPeHePA0TsA1yG7ztyZQVzJ07powycbaxkICUGl/IUmVC4aNyfJ8G4EvSVqCNJFhBiy4Nyn6S3FuMAk/qiP9Q==",
   "success": true,
   "projectFilePath": "D:\\dev\\back\\desafioAPI\\desafioAPI\\desafioAPI.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,7 @@
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\npgsql\\9.0.2\\npgsql.9.0.2.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.3\\npgsql.entityframeworkcore.postgresql.9.0.3.nupkg.sha512",
+    "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\rabbitmq.client\\7.0.0\\rabbitmq.client.7.0.0.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
@@ -61,7 +62,8 @@
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.text.encodings.web\\9.0.1\\system.text.encodings.web.9.0.1.nupkg.sha512",
     "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.text.json\\9.0.1\\system.text.json.9.0.1.nupkg.sha512",
-    "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
+    "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
+    "C:\\Users\\vinim_3dhsg33\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -31,7 +31,8 @@ namespace desafioAPI.Controllers
 
                 return Ok("The transaction was successfully made");
 
-            } catch (TransferException ex)
+            }
+            catch (TransferException ex)
             {
                 return BadRequest(new
                 {
@@ -43,19 +44,28 @@ namespace desafioAPI.Controllers
 
                 });
             }
-            
+            catch (AuthorizationException ex)
+            {
+                return BadRequest(new
+                {
+                    message = ex.Message,
+                    ex.transaction
+                });
+            }
+
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get (int walletId)
+        public async Task<IActionResult> Get(int walletId)
         {
             try
             {
                 var transactions = await _service.GetAllUserTransactions(walletId);
 
                 return Ok(transactions);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

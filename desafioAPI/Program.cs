@@ -51,12 +51,14 @@ namespace desafioAPI
                 });
             });
             builder.Services.AddDbContext<AppDBContext>();
+            builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddScoped<UserRepository>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<WalletRepository>();
             builder.Services.AddScoped<WalletService>();
             builder.Services.AddScoped<TransactionRepository>();
             builder.Services.AddScoped<TransactionService>();
+            builder.Services.AddScoped<AuthorizationService>();
 
 
             builder.Services.AddAuthentication(options =>

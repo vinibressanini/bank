@@ -140,3 +140,5 @@ D:\dev\back\desafioAPI\desafioAPI\obj\Debug\net8.0\refint\desafioAPI.dll
 D:\dev\back\desafioAPI\desafioAPI\obj\Debug\net8.0\desafioAPI.pdb
 D:\dev\back\desafioAPI\desafioAPI\obj\Debug\net8.0\desafioAPI.genruntimeconfig.cache
 D:\dev\back\desafioAPI\desafioAPI\obj\Debug\net8.0\ref\desafioAPI.dll
+D:\dev\back\desafioAPI\desafioAPI\obj\Debug\net8.0\desafioAPI.sourcelink.json
+D:\dev\back\desafioAPI\desafioAPI\bin\Debug\net8.0\RabbitMQ.Client.dll

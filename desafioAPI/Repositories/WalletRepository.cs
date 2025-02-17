@@ -31,39 +31,35 @@ namespace desafioAPI.Repositories
 
         public async Task<Wallet?> GetByIdLock(int id)
         {
-            using (var dbContext = new AppDBContext())
-            {
-                return await dbContext.Wallet.FromSql($"SELECT * FROM \"Wallet\" WHERE \"Id\"={id} FOR UPDATE").FirstOrDefaultAsync();
-            }
+
+            return await _context.Wallet.FromSql($"SELECT * FROM \"Wallet\" WHERE \"Id\"={id} FOR UPDATE").FirstOrDefaultAsync();
 
         }
 
         public async Task<Wallet?> UpdateBalance(Wallet entity)
         {
 
-            using (var dbContext = new AppDBContext())
+
+            try
             {
 
-                try
-                {
+                var wallet = await _context.Wallet.FirstOrDefaultAsync(wallet => wallet.Id == entity.Id);
 
-                    var wallet = await dbContext.Wallet.FirstOrDefaultAsync(wallet => wallet.Id == entity.Id);
+                wallet.Balance = entity.Balance;
 
-                    wallet.Balance = entity.Balance;
+                await _context.SaveChangesAsync();
 
-                    await dbContext.SaveChangesAsync();
+                return wallet;
 
-                    return wallet;
-
-
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
 
             }
-            
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+
+
         }
 
     }

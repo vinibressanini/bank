@@ -31,14 +31,7 @@ namespace desafioAPI.Repositories
 
         public async Task<User?> GetByEmailAndPassword(string email, string password)
         {
-
-            using (var _dbContext = new AppDBContext())
-            {
-                return await _dbContext.User.FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
-            }
-
-
-
+            return await _context.User.FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
         }
 
         public async Task<bool> IsEmailAlreadyRegistered(string email)
