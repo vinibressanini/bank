@@ -1,5 +1,8 @@
+using desafioAPI.Bus;
 using desafioAPI.Context;
-using desafioAPI.Controllers;
+using desafioAPI.DI;
+using desafioAPI.Events;
+using desafioAPI.Models;
 using desafioAPI.Repositories;
 using desafioAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,6 +53,9 @@ namespace desafioAPI
                     }
                 });
             });
+
+            builder.Services.AddRabbitMQService();
+
             builder.Services.AddDbContext<AppDBContext>();
             builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddScoped<UserRepository>();
@@ -59,6 +65,7 @@ namespace desafioAPI
             builder.Services.AddScoped<TransactionRepository>();
             builder.Services.AddScoped<TransactionService>();
             builder.Services.AddScoped<AuthorizationService>();
+            builder.Services.AddScoped<IBus<TransactionCreatedEvent>,Bus<TransactionCreatedEvent>>();
 
 
             builder.Services.AddAuthentication(options =>

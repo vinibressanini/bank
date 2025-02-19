@@ -1,4 +1,6 @@
-﻿using desafioAPI.DTO;
+﻿using desafioAPI.Bus;
+using desafioAPI.DTO;
+using desafioAPI.Events;
 using desafioAPI.Exceptions;
 using desafioAPI.Models;
 using desafioAPI.Repositories;
@@ -12,14 +14,16 @@ namespace desafioAPI.Services
         private readonly TransactionRepository _repo;
         private readonly WalletRepository _walletRepo;
         private readonly AuthorizationService _authorizationService;
+        private readonly IBus<TransactionCreatedEvent> _bus;
         private readonly ILogger<TransactionService> _logger;
 
-        public TransactionService(TransactionRepository repo, WalletRepository userRepo, ILogger<TransactionService> logger, AuthorizationService authorizationService)
+        public TransactionService(TransactionRepository repo, WalletRepository userRepo, ILogger<TransactionService> logger, AuthorizationService authorizationService,IBus<TransactionCreatedEvent> bus)
         {
             _repo = repo;
             _walletRepo = userRepo;
             _logger = logger;
             _authorizationService = authorizationService;
+            _bus = bus;
         }
 
         public async Task MakeTransaction(TransactionPostRequestBody transactionDTO)
@@ -53,6 +57,12 @@ namespace desafioAPI.Services
                     await _repo.Create(transaction);
 
                     await _authorizationService.Authorize(transaction);
+
+                    await _bus.Publish(new TransactionCreatedEvent
+                    {
+                        Id = new Guid(),
+                        Transaction = transaction
+                    });
 
                     await dbTransaction.CommitAsync();
 
