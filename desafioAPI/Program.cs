@@ -2,7 +2,6 @@ using desafioAPI.Bus;
 using desafioAPI.Context;
 using desafioAPI.DI;
 using desafioAPI.Events;
-using desafioAPI.Models;
 using desafioAPI.Repositories;
 using desafioAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,6 +16,8 @@ namespace desafioAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Configuration.SetBasePath($"{Directory.GetCurrentDirectory()}/Settings/").AddJsonFile("appsettings.json");
 
             // Add services to the container.
 

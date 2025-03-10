@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "desafioAPI", "desafioAPI\desafioAPI.csproj", "{6CAF3327-9F0F-4209-B07C-8A7D16C75215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "desafioAPI.tests", "desafioAPI.tests\desafioAPI.tests.csproj", "{A02DAB0C-07D2-4E20-A011-A466C00F0D88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "desafioAPI.tests", "desafioAPI.tests\desafioAPI.tests.csproj", "{A02DAB0C-07D2-4E20-A011-A466C00F0D88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "desafioAPI.consumer", "desafioAPI.consumer\desafioAPI.consumer.csproj", "{31829D90-1428-4C71-B4F9-AA53D18B97DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A02DAB0C-07D2-4E20-A011-A466C00F0D88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A02DAB0C-07D2-4E20-A011-A466C00F0D88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A02DAB0C-07D2-4E20-A011-A466C00F0D88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31829D90-1428-4C71-B4F9-AA53D18B97DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31829D90-1428-4C71-B4F9-AA53D18B97DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31829D90-1428-4C71-B4F9-AA53D18B97DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31829D90-1428-4C71-B4F9-AA53D18B97DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
